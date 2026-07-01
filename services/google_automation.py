@@ -990,13 +990,14 @@ def gmail_login(driver: webdriver.Chrome, email: str, password: str) -> str:
             # --- MULAI INJEKSI WARM-UP ---
             logger.info("Melakukan pemanasan profil (warm-up) sebelum login...")
             try:
-                driver.get("https://news.google.com/")
-                time.sleep(random.uniform(3.0, 5.0))
-                driver.execute_script("window.scrollTo(0, document.body.scrollHeight/4);")
-                time.sleep(random.uniform(1.0, 2.0))
-            except TimeoutException as exc:
-                logger.warning("Warm-up page load timed out; continuing anyway: %s", exc)
+                driver.set_page_load_timeout(10)
+                driver.get("https://www.google.com/")
+                time.sleep(random.uniform(2.0, 3.0))
+            except Exception as exc:
+                logger.warning("Pemanasan profil terhenti atau timeout; melanjutkan: %s", exc)
                 _stop_page_load(driver)
+            finally:
+                driver.set_page_load_timeout(config.PAGE_LOAD_TIMEOUT)
             # --- AKHIR INJEKSI WARM-UP ---
 
         try:

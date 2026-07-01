@@ -22,6 +22,13 @@ import logging
 import os
 import sys
 
+# Clean up NO_PROXY / no_proxy to prevent httpx from crashing on IPv6 loopback addresses like ::1 on Windows
+for _var_name in ("no_proxy", "NO_PROXY"):
+    if _var_name in os.environ:
+        _parts = [p.strip() for p in os.environ[_var_name].split(",")]
+        _cleaned = [p for p in _parts if p not in ("::1", "::1/128")]
+        os.environ[_var_name] = ",".join(_cleaned)
+
 from telegram import Update
 from telegram.ext import (
     Application,

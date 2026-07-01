@@ -32,7 +32,7 @@ INLINE_PANEL_FOOTER_KEY = "menu_panel_refresh"
 I18N = {
     "en": {
         "start_title": "🚀 Pixel Google One Assistant",
-        "start_header_caption": "🚀 Pixel Control Panel • Created by Nadif Rizky",
+        "start_header_caption": "🚀 Pixel Control Panel • Created by Dziel",
         "start_subtitle": "⌬ Pixel Control Panel • Google One • Modern Offer Deck",
         "start_body": (
             "A modern Telegram control deck for secure Google sign-in, Pixel "
@@ -41,11 +41,11 @@ I18N = {
         "start_deck_intro": "Use the control deck below to launch login, diagnostics, proxy tools, and offer checks in one tap.",
         "start_tip": "💡 Gmail and Google Workspace accounts are supported.",
         "start_privacy": "🔒 Credentials stay in memory only for the active session.",
-        "creator_line": "Created by Nadif Rizky",
+        "creator_line": "Created by Dziel",
         "quick_actions_title": (
             "<b>⌬ Pixel Control Panel</b>\n"
             "<code>Pixel • Google One • Modern Offer Deck</code>\n"
-            "<i>Created by Nadif Rizky</i>\n\n"
+            "<i>Created by Dziel</i>\n\n"
             "Tap a module below to continue."
         ),
         "section_quick_start": "Quick Start",
@@ -350,7 +350,7 @@ I18N = {
     },
     "id": {
         "start_title": "🚀 Pixel Google One Assistant",
-        "start_header_caption": "🚀 Panel Kontrol Pixel • Created by Nadif Rizky",
+        "start_header_caption": "🚀 Panel Kontrol Pixel • Created by Dziel",
         "start_subtitle": "⌬ Panel Kontrol Pixel • Google One • Deck Offer Modern",
         "start_body": (
             "Panel kontrol Telegram modern untuk login Google yang aman, simulasi "
@@ -359,11 +359,11 @@ I18N = {
         "start_deck_intro": "Gunakan control deck di bawah untuk membuka login, diagnostik, alat proxy, dan pengecekan offer hanya dengan satu tap.",
         "start_tip": "💡 Mendukung akun Gmail dan Google Workspace.",
         "start_privacy": "🔒 Kredensial hanya disimpan di memori selama sesi aktif.",
-        "creator_line": "Dibuat oleh Nadif Rizky",
+        "creator_line": "Dibuat oleh Dziel",
         "quick_actions_title": (
             "<b>⌬ Pixel Control Panel</b>\n"
             "<code>Pixel • Google One • Deck Offer Modern</code>\n"
-            "<i>Created by Nadif Rizky</i>\n\n"
+            "<i>Created by Dziel</i>\n\n"
             "Pilih modul di bawah untuk melanjutkan."
         ),
         "section_quick_start": "Mulai Cepat",

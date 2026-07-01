@@ -29,7 +29,7 @@ class ProxyStatus:
 
 def normalize_proxy_url(raw_value: str) -> str:
     """Normalize multiple proxy formats into a canonical URL string."""
-    value = (raw_value or "").strip()
+    value = (raw_value or "").strip().lstrip("\ufeff")
     if not value or value.startswith("#"):
         return ""
 
