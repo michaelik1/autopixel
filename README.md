@@ -1,7 +1,6 @@
 # AutoPixel
 
-**Pixel Google One Assistant**  
-Created by **Nadif Rizky**
+**Pixel Google One Assistant**
 
 AutoPixel is a Telegram bot that simulates a Pixel device session (Pixel 10 Pro by default, with the rest of the Google One AI Premium-eligible Pixel 9 Pro and Pixel 10 Pro lineup also available), signs in to a Google account, checks Google One / Gemini offer availability, and gives you a modern control panel for session, proxy, IP, and diagnostic tools.
 
@@ -93,7 +92,6 @@ The bot now uses:
 - a local banner/header image on `/start`
 - a 2-column inline control panel
 - reply-keyboard navigation buttons
-- branded text showing **Created by Nadif Rizky**
 
 Important: old inline panels sent before the latest update still contain the old non-working inline-query buttons. Send `/start` again to get the new working control panel.
 
@@ -344,8 +342,6 @@ This bot helps you manage secure Google One / Gemini offer checks with a modern 
 ✅ Session Status: Review account, device, and connection details instantly
 
 Tap /start to open the Pixel Control Panel.
-
-Created by Nadif Rizky.
 ```
 
 ## Security Notes
