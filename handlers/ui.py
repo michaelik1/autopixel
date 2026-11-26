@@ -36,7 +36,7 @@ I18N = {
         "start_subtitle": "⌬ Pixel Control Panel • Google One • Modern Offer Deck",
         "start_body": (
             "A modern Telegram control deck for secure Google sign-in, Pixel "
-            "device simulation, proxy-aware networking, and live Gemini offer checks."
+            "device simulation, proxy-aware networking, and live Google AI Pro offer checks."
         ),
         "start_deck_intro": "Use the control deck below to launch login, diagnostics, proxy tools, and offer checks in one tap.",
         "start_tip": "💡 Gmail and Google Workspace accounts are supported.",
@@ -62,7 +62,7 @@ I18N = {
         "start_flow_3": "Run /check_offer and inspect the live result",
         "command_login_desc": "Open a secure login session",
         "command_witai_desc": "Save the Wit.ai token for audio captcha solving",
-        "command_check_offer_desc": "Run the Gemini offer scanner",
+        "command_check_offer_desc": "Run the Google AI Pro offer scanner",
         "command_doctor_desc": "Run the first-time setup self-check",
         "command_get_link_desc": "Show the latest captured offer link",
         "command_status_desc": "View account, proxy, and device status",
@@ -105,7 +105,7 @@ I18N = {
         ),
         "offer_login_success_checking": (
             "✅ Login successful ({attempt}/{max_attempts}).\n"
-            "Checking Gemini Pro offer now..."
+            "Checking Google AI Pro offer now..."
         ),
         "offer_auto_totp_error": (
             "❌ Auto-TOTP error: {error}\n"
@@ -165,25 +165,27 @@ I18N = {
             "Send /cancel to stop this check."
         ),
         "offer_verification_completed_checking": (
-            "✅ Verification completed. Checking Gemini Pro offer now..."
+            "✅ Verification completed. Checking Google AI Pro offer now..."
         ),
         "offer_verification_cancelled": "❌ Verification cancelled.",
         "offer_verification_timed_out": (
             "⏰ Verification timed out. Please run /check_offer again."
         ),
         "offer_found_html": (
-            "🎉 <b>Gemini Pro Offer Found!</b>\n\n"
-            "Use the link below to activate your 12-month free Gemini Pro:\n\n"
+            "🎉 <b>Google AI Pro Offer Found!</b>\n\n"
+            "Use the link below to activate your free Google AI Pro trial "
+            "({months} months, {storage} storage):\n\n"
             "🔗 {offer_link}\n\n"
             "You can run /get_link anytime to retrieve this link again."
         ),
         "offer_found_plain": (
-            "🎉 Gemini Pro Offer Found!\n\n"
+            "🎉 Google AI Pro Offer Found!\n\n"
+            "Free trial: {months} months, {storage} storage.\n\n"
             "🔗 {offer_link}\n\n"
             "You can run /get_link anytime to retrieve this link again."
         ),
         "offer_not_found_now": (
-            "😔 No active Gemini Pro offer was detected on your Google One account at this time.\n\n"
+            "😔 No active Google AI Pro offer was detected on your Google One account at this time.\n\n"
             "The offer may not be available for your account region or may have already been activated. "
             "You can try again later.{diagnostic_note}{artifact_note}"
         ),
@@ -194,7 +196,7 @@ I18N = {
             "{diagnostic_note}{artifact_note}"
         ),
         "offer_not_found_after_attempts": (
-            "❌ No Gemini Pro offer found after {attempts} attempts.\n\n"
+            "❌ No Google AI Pro offer found after {attempts} attempts.\n\n"
             "Possible reasons:\n"
             "• Your account region is not eligible\n"
             "• An active Gemini subscription already exists\n"
@@ -336,13 +338,15 @@ I18N = {
         "device_prompt": (
             "📱 <b>Pick a Pixel Device</b>\n\n"
             "Pick which Pixel the bot should simulate for your session. "
-            "Only devices eligible for the Google One AI Premium (2 TB) "
-            "12-month trial are listed.\n\n"
+            "Only devices with a Google AI Pro trial offer (current or historical) "
+            "are listed; trial length and storage depend on the device.\n\n"
             "Active: <code>{active}</code>"
         ),
         "device_set_title": "✅ <b>Device Updated</b>",
         "device_set_body": (
-            "Bot will now simulate <b>{model}</b> (Android {android}) for your session."
+            "Bot will now simulate <b>{model}</b> (Android {android}) for your session.\n"
+            "Google AI Pro trial terms for this profile: <b>{months} months</b>, "
+            "<b>{storage}</b> storage."
         ),
         "device_set_next": "Next step: run <code>/login</code> or <code>/check_offer</code>.",
         "device_set_toast": "Device set to {model}",
@@ -380,7 +384,7 @@ I18N = {
         "start_flow_3": "Jalankan /check_offer dan lihat hasil live-nya",
         "command_login_desc": "Buka sesi login yang aman",
         "command_witai_desc": "Simpan token Wit.ai untuk solver audio captcha",
-        "command_check_offer_desc": "Jalankan scanner offer Gemini",
+        "command_check_offer_desc": "Jalankan scanner offer Google AI Pro",
         "command_doctor_desc": "Jalankan self-check setup untuk pengguna baru",
         "command_get_link_desc": "Tampilkan link offer terakhir yang tertangkap",
         "command_status_desc": "Lihat status akun, proxy, dan device",
@@ -425,7 +429,7 @@ I18N = {
         ),
         "offer_login_success_checking": (
             "✅ Login berhasil ({attempt}/{max_attempts}).\n"
-            "Sedang memeriksa offer Gemini Pro sekarang..."
+            "Sedang memeriksa offer Google AI Pro sekarang..."
         ),
         "offer_auto_totp_error": (
             "❌ Error Auto-TOTP: {error}\n"
@@ -491,25 +495,27 @@ I18N = {
             "Kirim /cancel untuk menghentikan pengecekan ini."
         ),
         "offer_verification_completed_checking": (
-            "✅ Verifikasi selesai. Sedang memeriksa offer Gemini Pro sekarang..."
+            "✅ Verifikasi selesai. Sedang memeriksa offer Google AI Pro sekarang..."
         ),
         "offer_verification_cancelled": "❌ Verifikasi dibatalkan.",
         "offer_verification_timed_out": (
             "⏰ Waktu verifikasi habis. Silakan jalankan /check_offer lagi."
         ),
         "offer_found_html": (
-            "🎉 <b>Offer Gemini Pro Ditemukan!</b>\n\n"
-            "Gunakan link di bawah untuk mengaktifkan Gemini Pro gratis 12 bulan:\n\n"
+            "🎉 <b>Offer Google AI Pro Ditemukan!</b>\n\n"
+            "Gunakan link di bawah untuk mengaktifkan trial Google AI Pro gratis Anda "
+            "({months} bulan, penyimpanan {storage}):\n\n"
             "🔗 {offer_link}\n\n"
             "Anda bisa menjalankan /get_link kapan saja untuk mengambil link ini lagi."
         ),
         "offer_found_plain": (
-            "🎉 Offer Gemini Pro Ditemukan!\n\n"
+            "🎉 Offer Google AI Pro Ditemukan!\n\n"
+            "Trial gratis: {months} bulan, penyimpanan {storage}.\n\n"
             "🔗 {offer_link}\n\n"
             "Anda bisa menjalankan /get_link kapan saja untuk mengambil link ini lagi."
         ),
         "offer_not_found_now": (
-            "😔 Tidak ada offer Gemini Pro aktif yang terdeteksi di akun Google One Anda saat ini.\n\n"
+            "😔 Tidak ada offer Google AI Pro aktif yang terdeteksi di akun Google One Anda saat ini.\n\n"
             "Offer ini mungkin belum tersedia untuk region akun Anda atau mungkin sudah pernah diaktifkan. "
             "Anda bisa mencoba lagi nanti.{diagnostic_note}{artifact_note}"
         ),
@@ -520,7 +526,7 @@ I18N = {
             "{diagnostic_note}{artifact_note}"
         ),
         "offer_not_found_after_attempts": (
-            "❌ Tidak ditemukan offer Gemini Pro setelah {attempts} percobaan.\n\n"
+            "❌ Tidak ditemukan offer Google AI Pro setelah {attempts} percobaan.\n\n"
             "Kemungkinan penyebab:\n"
             "• Region akun Anda tidak memenuhi syarat\n"
             "• Sudah ada langganan Gemini aktif\n"
@@ -662,13 +668,15 @@ I18N = {
         "device_prompt": (
             "📱 <b>Pilih Device Pixel</b>\n\n"
             "Pilih Pixel yang akan disimulasikan bot untuk sesi Anda. "
-            "Hanya device yang memenuhi syarat trial Google One AI Premium "
-            "(2 TB) selama 12 bulan yang ditampilkan.\n\n"
+            "Hanya device dengan offer trial Google AI Pro (aktif atau historis) "
+            "yang ditampilkan; durasi trial dan penyimpanan tergantung device.\n\n"
             "Aktif: <code>{active}</code>"
         ),
         "device_set_title": "✅ <b>Device Diperbarui</b>",
         "device_set_body": (
-            "Bot sekarang akan menyimulasikan <b>{model}</b> (Android {android}) untuk sesi Anda."
+            "Bot sekarang akan menyimulasikan <b>{model}</b> (Android {android}) untuk sesi Anda.\n"
+            "Ketentuan trial Google AI Pro untuk profil ini: <b>{months} bulan</b>, "
+            "penyimpanan <b>{storage}</b>."
         ),
         "device_set_next": "Langkah berikutnya: jalankan <code>/login</code> atau <code>/check_offer</code>.",
         "device_set_toast": "Device diatur ke {model}",

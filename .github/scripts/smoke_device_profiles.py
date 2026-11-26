@@ -98,6 +98,32 @@ def _check_profile(profile_name: str) -> None:
         f"got {headers.get('Sec-CH-UA-Model')!r}"
     )
 
+    offer_terms = device_simulator.get_offer_terms_for_profile(profile_name)
+    assert offer_terms["months"] and offer_terms["storage"], (
+        f"Missing offer terms for {profile_name}: {offer_terms!r}"
+    )
+
+    if profile_name == "pixel_11_pro":
+        assert "grizzly" in profile.device_fingerprint, (
+            "Pixel 11 Pro fingerprint must use the grizzly codename: "
+            f"{profile.device_fingerprint}"
+        )
+        assert offer_terms == {"months": "6", "storage": "5 TB"}, (
+            f"Unexpected Pixel 11 Pro offer terms: {offer_terms!r}"
+        )
+        specs = device_simulator.DEVICE_SPECS_BY_PROFILE[profile_name]
+        assert specs["pixel_ratio"] == 3.125, (
+            f"Unexpected Pixel 11 Pro DPR: {specs['pixel_ratio']!r}"
+        )
+        assert specs["device_memory"] == 8, (
+            "Pixel 11 Pro must use Chrome's Android deviceMemory clamp of 8: "
+            f"{specs['device_memory']!r}"
+        )
+        assert specs["hardware_concurrency"] == 7, (
+            "Pixel 11 Pro Tensor G6 must report 7 logical CPUs: "
+            f"{specs['hardware_concurrency']!r}"
+        )
+
     print(
         f"[OK] {profile_name}: model={config.DEVICE_MODEL} "
         f"android={config.ANDROID_VERSION} build={sampled_build} "

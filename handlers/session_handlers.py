@@ -197,7 +197,7 @@ async def get_link(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     else:
         await message.reply_text(
             "ℹ️ No offer link has been captured yet. "
-            "Use /check\\_offer to search for the Gemini Pro offer.",
+            "Use /check\\_offer to search for the Google AI Pro offer.",
             parse_mode="Markdown",
             reply_markup=main_menu_keyboard(context),
         )

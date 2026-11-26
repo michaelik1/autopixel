@@ -1,5 +1,5 @@
 """
-Configuration and constants for the Pixel 10 Pro Google One Gemini Bot.
+Configuration and constants for the Pixel 11 Pro Google One Gemini Bot.
 """
 
 import logging
@@ -81,10 +81,28 @@ BOT_HEADER_MEDIA_URL = _env_text(
 
 # ── Device specs – Available device profiles ────────────────────────────────
 # Each preset describes a stock Pixel build that the bot can simulate.
-# Only Pixel devices that qualify for the Google One AI Premium (2 TB)
-# 12-month trial are listed here: the Pixel 9 Pro / 9 Pro XL / 9 Pro Fold and
-# the Pixel 10 Pro / 10 Pro XL / 10 Pro Fold.
+# Only Pixel devices that qualify for a Google AI Pro trial are listed here:
+# the Pixel 9 Pro / 9 Pro XL / 9 Pro Fold, the Pixel 10 Pro / 10 Pro XL /
+# 10 Pro Fold, and the Pixel 11 Pro.
+#
+# Offer terms differ by generation. Pixel 9/10 Pro models came with a
+# 12-month, 2 TB Google AI Pro trial, while the Pixel 11 Pro ships with a
+# 6-month, 5 TB trial. The UI reads the offer_* fields so offer messages stay
+# accurate for the active device profile.
 DEVICE_PRESETS: dict[str, dict[str, str]] = {
+    "pixel_11_pro": {
+        "model": "Pixel 11 Pro",
+        "brand": "google",
+        "manufacturer": "Google",
+        "android_version": "17",
+        "android_sdk": "37",
+        "build_id": "CP4A.261105.040.D1",
+        "codename": "grizzly",
+        "accept_language": "en-US,en;q=0.9",
+        "locale": "en-US",
+        "offer_months": "6",
+        "offer_storage": "5 TB",
+    },
     "pixel_10_pro": {
         "model": "Pixel 10 Pro",
         "brand": "google",
@@ -94,6 +112,8 @@ DEVICE_PRESETS: dict[str, dict[str, str]] = {
         "build_id": "AP4A.250405.002",
         "accept_language": "en-US,en;q=0.9",
         "locale": "en-US",
+        "offer_months": "12",
+        "offer_storage": "2 TB",
     },
     "pixel_10_pro_xl": {
         "model": "Pixel 10 Pro XL",
@@ -104,6 +124,8 @@ DEVICE_PRESETS: dict[str, dict[str, str]] = {
         "build_id": "AP4A.250405.003",
         "accept_language": "en-US,en;q=0.9",
         "locale": "en-US",
+        "offer_months": "12",
+        "offer_storage": "2 TB",
     },
     "pixel_10_pro_fold": {
         "model": "Pixel 10 Pro Fold",
@@ -114,6 +136,8 @@ DEVICE_PRESETS: dict[str, dict[str, str]] = {
         "build_id": "AP4A.250405.004",
         "accept_language": "en-US,en;q=0.9",
         "locale": "en-US",
+        "offer_months": "12",
+        "offer_storage": "2 TB",
     },
     "pixel_9_pro": {
         "model": "Pixel 9 Pro",
@@ -124,6 +148,8 @@ DEVICE_PRESETS: dict[str, dict[str, str]] = {
         "build_id": "AP4A.250405.005",
         "accept_language": "en-US,en;q=0.9",
         "locale": "en-US",
+        "offer_months": "12",
+        "offer_storage": "2 TB",
     },
     "pixel_9_pro_xl": {
         "model": "Pixel 9 Pro XL",
@@ -134,6 +160,8 @@ DEVICE_PRESETS: dict[str, dict[str, str]] = {
         "build_id": "AP4A.250405.006",
         "accept_language": "en-US,en;q=0.9",
         "locale": "en-US",
+        "offer_months": "12",
+        "offer_storage": "2 TB",
     },
     "pixel_9_pro_fold": {
         "model": "Pixel 9 Pro Fold",
@@ -144,10 +172,12 @@ DEVICE_PRESETS: dict[str, dict[str, str]] = {
         "build_id": "AP4A.250405.007",
         "accept_language": "en-US,en;q=0.9",
         "locale": "en-US",
+        "offer_months": "12",
+        "offer_storage": "2 TB",
     },
 }
 
-DEFAULT_DEVICE_PROFILE = "pixel_10_pro"
+DEFAULT_DEVICE_PROFILE = "pixel_11_pro"
 DEVICE_PROFILE_NAME = (
     _env_text("DEVICE_PROFILE", DEFAULT_DEVICE_PROFILE).lower().replace("-", "_")
 )
@@ -255,7 +285,7 @@ def _detect_chrome_version() -> tuple[str, int]:
 
 CHROME_VERSION, CHROME_MAJOR_VERSION = _detect_chrome_version()
 
-# Pool of realistic Pixel 10 Pro user-agent strings.
+# Pool of realistic Pixel user-agent strings.
 # Keep these browser-consistent; avoid WebView-only markers unless the
 # underlying runtime is actually Android WebView.
 USER_AGENT_TEMPLATES = [
@@ -276,13 +306,21 @@ GMAIL_LOGIN_URL = "https://accounts.google.com/signin/v2/identifier"
 GOOGLE_ONE_URL = "https://one.google.com/"
 GOOGLE_ONE_OFFERS_URL = "https://one.google.com/about/plans"
 
-# ── Gemini offer detection keywords ──────────────────────────────────────────
+# ── Google AI Pro / Gemini offer detection keywords ─────────────────────────
 GEMINI_OFFER_KEYWORDS = [
     "gemini pro",
     "gemini advanced",
+    "google ai pro",
+    "ai premium",
     "12 month",
     "12-month",
+    "6 month",
+    "6-month",
     "free trial",
+    "2 tb",
+    "2tb",
+    "5 tb",
+    "5tb",
     "activate",
     "get started",
     "claim offer",

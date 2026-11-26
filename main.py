@@ -1,5 +1,5 @@
 """
-Telegram Bot entry point for the Pixel 10 Pro Google One Gemini Bot.
+Telegram Bot entry point for the Pixel 11 Pro Google One Gemini Bot.
 
 Commands:
   /start        – Show welcome message and available commands
@@ -7,9 +7,10 @@ Commands:
   /login        – Begin credential capture flow (email → password)
   /witai        – Save or clear the Wit.ai token used for audio captcha solving
   /logout       – Clear stored credentials and session data
-  /check_offer  – Run Google One automation and look for Gemini Pro offer
+  /check_offer  – Run Google One automation and look for Google AI Pro offer
   /get_link     – Show the last captured offer link
   /status       – Show current session status and device profile
+  /device       – Pick which Pixel device the bot simulates
   /disable_proxy – Force the current session to use direct/local IP
   /lang_id      – Switch chat language to Indonesian
   /langid       – Alias for /lang_id

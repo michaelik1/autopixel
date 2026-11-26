@@ -2,16 +2,16 @@
 
 **Pixel Google One Assistant**
 
-AutoPixel is a Telegram bot that simulates a Pixel device session (Pixel 10 Pro by default, with the rest of the Google One AI Premium-eligible Pixel 9 Pro and Pixel 10 Pro lineup also available), signs in to a Google account, checks Google One / Gemini offer availability, and gives you a modern control panel for session, proxy, IP, and diagnostic tools.
+AutoPixel is a Telegram bot that simulates a Pixel device session (Pixel 11 Pro on Android 17 by default, with the Google AI Pro-eligible Pixel 9 Pro and Pixel 10 Pro lineup also available), signs in to a Google account, checks Google One / Google AI Pro offer availability, and gives you a modern control panel for session, proxy, IP, and diagnostic tools.
 
 ## Highlights
 
-- Simulates a fresh Pixel device profile for each login session (defaults to Pixel 10 Pro)
-- Switchable device profiles for the Google One AI Premium 2 TB 12-month-eligible Pixel lineup (Pixel 9 Pro / 9 Pro XL / 9 Pro Fold and Pixel 10 Pro / 10 Pro XL / 10 Pro Fold) via `DEVICE_PROFILE` or, per Telegram user, the new `/device` picker
+- Simulates a fresh Pixel device profile for each login session (defaults to Pixel 11 Pro on Android 17)
+- Switchable device profiles for the Google AI Pro-eligible Pixel lineup (Pixel 9 Pro / 9 Pro XL / 9 Pro Fold, Pixel 10 Pro / 10 Pro XL / 10 Pro Fold, and Pixel 11 Pro) via `DEVICE_PROFILE` or the per-user `/device` picker
 - Supports Gmail and Google Workspace accounts
 - Handles Google sign-in with TOTP / authenticator flow support
 - Can attempt audio captcha solving through `wit.ai` before falling back to manual verification
-- Checks Google One pages for Gemini / AI Pro offer availability
+- Checks Google One pages for Google AI Pro offer availability
 - Supports proxy pool rotation and direct/local IP mode
 - Shows public IP, region, ZIP, org, ISP, ASN, timezone, and other proxy identity details
 - Saves screenshot + HTML debug artifacts when no offer is found
@@ -24,15 +24,14 @@ AutoPixel is a Telegram bot that simulates a Pixel device session (Pixel 10 Pro 
 
 ## Latest Product Update
 
-As of **March 31, 2026**, the current user-facing baseline includes:
+As of **November 26, 2026**, the current user-facing baseline includes:
 
-- `/doctor` to validate first-run setup before you test a real Google account
-- `/ip` output that now exposes `.env`-ready emulation timezone and GPS values
-- safer `.env` handling so bad numeric fallback values do not break startup
-- a tracked sample `proxies.txt` file for quicker proxy onboarding
-- refreshed Google One / Pixel onboarding docs and region guidance
+- **Pixel 11 Pro on Android 17** is now the default simulated device, with Pixel 11 Pro `grizzly` build IDs, a 1280 × 2856 panel, a 410 × 914 CSS viewport at DPR 3.125, Tensor G6 core count, PowerVR CXTP-48-1536 WebGL identity, and Android 17 Client Hints
+- device-aware Google AI Pro offer messaging: the Pixel 11 Pro profile shows the current **6-month / 5 TB** trial, while the Pixel 9/10 Pro profiles keep the older **12-month / 2 TB** terms
+- 6-month and 5 TB offer markers in the Google One scanner so the current Pixel 11 Pro promo is diagnosed and captured correctly
+- the per-user `/device` picker still lets each Telegram chat switch profiles without restarting the bot
 
-This update is meant to make the project easier for first-time users to configure, diagnose, and understand before they run a live offer check.
+Earlier onboarding improvements remain in place: `/doctor`, `.env`-ready `/ip` output, safer numeric fallbacks, and the tracked sample `proxies.txt`.
 
 ## Documentation
 
@@ -42,25 +41,30 @@ This update is meant to make the project easier for first-time users to configur
 | `HOW TO RUN IT .txt` | Plain-text run guide for Windows PowerShell, Windows CMD, and Android Termux |
 | `CHANGELOG.md` | Baseline release notes and architecture history |
 
-## Pixel Promo Region Matrix
+## Pixel Promo Matrix
 
-As of **March 31, 2026**, Google's official Pixel offer page lists the **Pixel 10 Pro / Pixel 10 Pro XL / Pixel 10 Pro Fold** Google AI Pro promo across the following region groups. Actual eligibility still depends on device purchase + activation, account status, billing profile, and Google's live eligibility checks.
+As of **November 26, 2026**, Google's official Pixel offer page lists these Google AI Pro trials for current and recent Pixel Pro devices:
 
-| Region Group | Countries / Regions Listed by Google | Notes |
-|---|---|---|
-| USA & North America | Canada, Mexico, United States | Listed on the official Pixel offer help page |
-| Europe | Austria, Belgium, Czechia, Denmark, Estonia, Finland, France, Germany, Hungary, Ireland, Italy, Latvia, Lithuania, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden, Switzerland, United Kingdom | Listed on the official Pixel offer help page |
-| Asia-Pacific | Australia, India, Japan, Malaysia, Singapore, Taiwan | Listed on the official Pixel offer help page |
+| Device family | Service | Trial length | Storage | Offer expires |
+|---|---|---|---|---|
+| Pixel 11 Pro / 11 Pro XL / 11 Pro Fold | Google AI Pro | 6 months | 5 TB | October 31, 2027 |
+| Pixel 10 Pro / 10 Pro XL / 10 Pro Fold | Google AI Pro | 12 months (6 months in Japan) | 2 TB | October 31, 2026 |
+| Pixel 9 Pro / 9 Pro XL / 9 Pro Fold | Google AI Pro | 12 months (6 months in Japan) | 2 TB | November 15, 2025 |
+| Pixel 11 (base model) | — | No Google AI Pro trial | — | — |
 
 Important notes:
 
-- Google also lists **Japan** separately on the same Pixel offer page for a shorter trial on some Pixel Pro offer rows, so trial length can vary by country and device row.
+- The Pixel 11 Pro terms page lists a broad country set, including the United States, Canada, the United Kingdom, EU countries, India, Japan, Australia, and more. Check the official terms page for the full list before relying on a specific country.
+- The older Pixel 10 Pro and Pixel 9 Pro promos have already expired; the Pixel 11 Pro offer is the current one in this matrix.
+- Google's Pixel 11 Pro redemption instructions are app-based (Gemini or Google One app). AutoPixel checks the web Google One pages, so an eligible account may still need to redeem from the phone app if no web link is captured.
 - Google AI Pro itself is supported in a much wider set of countries and regions than the Pixel-device promo. That means the plan may exist in a country even when the Pixel promo is not officially listed there.
+- Actual eligibility still depends on device purchase + activation, account status, billing profile, and Google's live eligibility checks.
 - This bot can only check for offer visibility and eligibility. It cannot make an account eligible in a country or billing profile that Google does not support.
 
 Official sources:
 
 - [Google One offers for Pixel devices](https://support.google.com/pixelphone/answer/13529884?hl=en-GB)
+- [Pixel 11 Pro Google One offer terms](https://one.google.com/offer/terms-and-conditions/pixel11pro)
 - [Get a Google AI Pro membership](https://support.google.com/googleone/answer/16476811?co=GENIE.Platform%3DDesktop&hl=en)
 
 ## Main Commands
@@ -78,6 +82,7 @@ Official sources:
 | `/ip` | Show public IP and geo/identity data |
 | `/rotate_proxy` | Switch to another proxy from the pool |
 | `/disable_proxy` | Force the session to use direct/local IP |
+| `/device` | Pick which Pixel device the bot simulates for your chat |
 | `/lang_en` | Switch bot UI to English |
 | `/lang_id` | Switch bot UI to Indonesian |
 | `/langid` | Alias for `/lang_id` |
@@ -108,6 +113,7 @@ AUTOPIXEL/
 │   └── session_manager.py
 ├── handlers/
 │   ├── auth_handlers.py
+│   ├── device_handlers.py
 │   ├── offer_handlers.py
 │   ├── session_handlers.py
 │   └── ui.py
@@ -206,24 +212,29 @@ Notes:
 
 ### Optional device profile
 
-AutoPixel defaults to a **Pixel 10 Pro on Android 16** profile. Only Pixel devices eligible for the Google One AI Premium (2 TB) 12-month trial are bundled — that means the Pixel 9 Pro / 9 Pro XL / 9 Pro Fold and Pixel 10 Pro / 10 Pro XL / 10 Pro Fold. To switch to another preset, set it in `.env`:
+AutoPixel defaults to a **Pixel 11 Pro on Android 17** profile. Only Pixel devices with a Google AI Pro trial offer (current or historical) are bundled — that means the Pixel 9 Pro / 9 Pro XL / 9 Pro Fold, the Pixel 10 Pro / 10 Pro XL / 10 Pro Fold, and the Pixel 11 Pro. To switch to another preset, set it in `.env`:
 
 ```env
-DEVICE_PROFILE=pixel_9_pro
+DEVICE_PROFILE=pixel_10_pro
 ```
 
 Available presets:
 
-| Preset | Device | Android | SDK | GPU | RAM |
-|---|---|---|---|---|---|
-| `pixel_10_pro` (default) | Pixel 10 Pro | 16 | 36 | Adreno 750 | 12 GB |
-| `pixel_10_pro_xl` | Pixel 10 Pro XL | 16 | 36 | Adreno 750 | 16 GB |
-| `pixel_10_pro_fold` | Pixel 10 Pro Fold | 16 | 36 | Adreno 750 | 16 GB |
-| `pixel_9_pro` | Pixel 9 Pro | 16 | 36 | Mali-G715 Immortalis MP7 | 16 GB |
-| `pixel_9_pro_xl` | Pixel 9 Pro XL | 16 | 36 | Mali-G715 Immortalis MP7 | 16 GB |
-| `pixel_9_pro_fold` | Pixel 9 Pro Fold | 16 | 36 | Mali-G715 Immortalis MP7 | 16 GB |
+| Preset | Device | Android | SDK | GPU | RAM | AI Pro trial |
+|---|---|---|---|---|---|---|
+| `pixel_11_pro` (default) | Pixel 11 Pro | 17 | 37 | PowerVR CXTP-48-1536 MC1 | 12 GB | 6 months / 5 TB |
+| `pixel_10_pro` | Pixel 10 Pro | 16 | 36 | Adreno 750 | 12 GB | 12 months / 2 TB |
+| `pixel_10_pro_xl` | Pixel 10 Pro XL | 16 | 36 | Adreno 750 | 16 GB | 12 months / 2 TB |
+| `pixel_10_pro_fold` | Pixel 10 Pro Fold | 16 | 36 | Adreno 750 | 16 GB | 12 months / 2 TB |
+| `pixel_9_pro` | Pixel 9 Pro | 16 | 36 | Mali-G715 Immortalis MP7 | 16 GB | 12 months / 2 TB |
+| `pixel_9_pro_xl` | Pixel 9 Pro XL | 16 | 36 | Mali-G715 Immortalis MP7 | 16 GB | 12 months / 2 TB |
+| `pixel_9_pro_fold` | Pixel 9 Pro Fold | 16 | 36 | Mali-G715 Immortalis MP7 | 16 GB | 12 months / 2 TB |
 
-Switching the profile changes the simulated user-agent, build IDs, screen metrics, WebGL renderer, RAM, and Client Hints headers so the session matches the chosen device. An unknown value logs a warning and falls back to the default Pixel 10 Pro / Android 16 profile.
+RAM is the physical device RAM. Chrome reports `navigator.deviceMemory` as `8` on Android even for 12 GB phones because Chrome clamps that API to 8, and the Pixel 11 Pro profile follows that behavior. The Tensor G6 is a 7-core CPU, so the profile also reports `navigator.hardwareConcurrency = 7`.
+
+Only the Pixel 11 Pro is bundled from the Pixel 11 generation; Pixel 11 Pro XL and Pixel 11 Pro Fold presets are not included yet.
+
+Switching the profile changes the simulated user-agent, Pixel codename fingerprint, build IDs, screen metrics, WebGL renderer, RAM/core hints, Client Hints headers, and offer messaging so the session matches the chosen device. An unknown value logs a warning and falls back to the default Pixel 11 Pro / Android 17 profile.
 
 `DEVICE_PROFILE` only sets the **default** for new chats. From inside Telegram you can override it per user without restarting the bot:
 
@@ -286,14 +297,14 @@ You: /check_offer
 Bot: ⏳ Starting secure check...
 Bot: 🌍 Active Proxy Panel ...
 Bot: ✅ Login successful
-Bot: 🎉 Gemini Pro Offer Found! 🔗 https://one.google.com/...
+Bot: 🎉 Google AI Pro Offer Found! 🔗 https://one.google.com/...
 ```
 
 ## How Users Know It Worked
 
 - Login step is successful when the bot shows `✅ Session Ready`
 - Proxy/direct check is successful when `/ip` or `/proxy` shows the active network identity
-- Offer check is successful when the bot shows `🎉 Gemini Pro Offer Found!`
+- Offer check is successful when the bot shows `🎉 Google AI Pro Offer Found!`
 - If no offer exists, the bot will say no active offer was found and may attach screenshot/HTML debug artifacts
 
 ## Proxy and IP Notes
@@ -328,16 +339,16 @@ This helps distinguish:
 ### Short Description
 
 ```text
-Pixel 10 Pro Google One assistant with login automation, proxy tools, IP diagnostics, and Gemini offer checking.
+Pixel 11 Pro Google One assistant with login automation, proxy tools, IP diagnostics, and Google AI Pro offer checking.
 ```
 
 ### Description
 
 ```text
-This bot helps you manage secure Google One / Gemini offer checks with a modern Pixel-style control panel.
+This bot helps you manage secure Google One / Google AI Pro offer checks with a modern Pixel-style control panel.
 
 ✅ Secure Login: Save a session and launch Google sign-in safely
-✅ Offer Check: Scan Google One pages for Gemini / AI Pro offer availability
+✅ Offer Check: Scan Google One pages for Google AI Pro offer availability
 ✅ Proxy Tools: Rotate proxy, disable proxy, or inspect IP identity in real time
 ✅ Session Status: Review account, device, and connection details instantly
 
@@ -361,6 +372,7 @@ Tap /start to open the Pixel Control Panel.
 | `/check_offer` says no credentials | Run `/login` again because the session password has already been cleared |
 | Google gets stuck on an audio captcha | Set `WIT_AI_TOKEN` in `.env` so AutoPixel can try the audio challenge automatically, or finish it manually in Chrome |
 | Proxy is selected but traffic still looks direct, or proxy precheck fails | Check `/proxy` and `/ip`, then rotate or replace the proxy pool, or switch to direct mode |
+| No offer found on the Pixel 11 Pro profile | Confirm the account is eligible for the current 6-month / 5 TB Google AI Pro trial and has not already redeemed it. The older Pixel 10 Pro 12-month / 2 TB promo ended October 31, 2026 |
 | No offer found | Review account region, billing profile, payments setup, and whether the promo was already claimed |
 | Termux runs the bot but browser automation fails | Use Windows, Linux, or macOS with desktop Chrome for full automation support |
 

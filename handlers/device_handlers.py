@@ -15,7 +15,7 @@ from handlers.ui import (
     quick_actions_inline_keyboard,
     tr,
 )
-from services.device_simulator import create_device_profile
+from services.device_simulator import create_device_profile, get_offer_terms_for_profile
 from services.network_diagnostics import inspect_connection
 
 logger = logging.getLogger(__name__)
@@ -157,6 +157,7 @@ async def device_select(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     except Exception:
         pass
 
+    offer_terms = get_offer_terms_for_profile(active)
     body_lines = [
         tr(context, "device_set_title"),
         tr(
@@ -164,6 +165,8 @@ async def device_select(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
             "device_set_body",
             model=html.escape(preset["model"]),
             android=html.escape(preset["android_version"]),
+            months=html.escape(offer_terms["months"]),
+            storage=html.escape(offer_terms["storage"]),
         ),
     ]
     if refreshed_summary:

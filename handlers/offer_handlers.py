@@ -16,7 +16,7 @@ from core.session_manager import (
     get_session,
     secure_wipe,
 )
-from services.device_simulator import create_device_profile
+from services.device_simulator import create_device_profile, get_offer_terms_for_profile
 from services.google_automation import (
     GoogleAutomationError,
     check_offer_with_driver,
@@ -277,7 +277,16 @@ async def _report_offer(
     )
     if offer_link:
         session["offer_link"] = offer_link
-        text = tr(context, "offer_found_html", offer_link=offer_link)
+        device = session.get("device")
+        offer_terms = get_offer_terms_for_profile(
+            getattr(device, "profile_name", session.get("device_profile"))
+        )
+        text = tr(
+            context,
+            "offer_found_html",
+            offer_link=offer_link,
+            **offer_terms,
+        )
         try:
             await context.bot.send_message(
                 chat_id=chat_id,
@@ -288,7 +297,12 @@ async def _report_offer(
         except Exception:
             await context.bot.send_message(
                 chat_id=chat_id,
-                text=tr(context, "offer_found_plain", offer_link=offer_link),
+                text=tr(
+                    context,
+                    "offer_found_plain",
+                    offer_link=offer_link,
+                    **offer_terms,
+                ),
                 reply_markup=main_menu_keyboard(context),
             )
     else:

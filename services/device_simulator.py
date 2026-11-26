@@ -1,4 +1,4 @@
-"""Android Pixel 10 Pro device simulation service."""
+"""Android Pixel device simulation service."""
 
 import json
 import random
@@ -8,6 +8,30 @@ from collections.abc import Mapping
 from dataclasses import dataclass, field
 
 import config
+
+# Pixel 11 Pro (grizzly): 6.3" 1280x2856 LTPO OLED at 495 ppi.
+# Android 17 reports a 410x914 CSS viewport at DPR 3.125.
+PIXEL_11_PRO_SPECS = {
+    "width": 410,
+    "height": 914,
+    "device_width": 1280,
+    "device_height": 2856,
+    "pixel_ratio": 3.125,
+    "color_depth": 24,
+    "webgl_vendor": "Imagination Technologies",
+    "webgl_renderer": "PowerVR C-Series CXTP-48-1536 MC1",
+    "platform": "Linux armv8l",
+    "vendor": "Google Inc.",
+    "connection_type": "4g",
+    "effective_type": "4g",
+    "downlink": 10,
+    "rtt": 115,
+    "max_touch_points": 5,
+    # Chrome clamps navigator.deviceMemory to 8 on Android, even on 12 GB
+    # phones. Tensor G6 has a 7-core CPU, so Android reports 7 logical CPUs.
+    "device_memory": 8,
+    "hardware_concurrency": 7,
+}
 
 PIXEL_10_PRO_SPECS = {
     "width": 412,
@@ -130,6 +154,7 @@ PIXEL_9_PRO_FOLD_SPECS = {
 }
 
 DEVICE_SPECS_BY_PROFILE: dict[str, dict] = {
+    "pixel_11_pro": PIXEL_11_PRO_SPECS,
     "pixel_10_pro": PIXEL_10_PRO_SPECS,
     "pixel_10_pro_xl": PIXEL_10_PRO_XL_SPECS,
     "pixel_10_pro_fold": PIXEL_10_PRO_FOLD_SPECS,
@@ -139,6 +164,17 @@ DEVICE_SPECS_BY_PROFILE: dict[str, dict] = {
 }
 
 DEVICE_BUILDS_BY_PROFILE: dict[str, list[str]] = {
+    # Pixel 11 Pro (grizzly) factory/OTA builds, newest first.
+    "pixel_11_pro": [
+        "CP4A.261105.040.D1",
+        "CP4A.261105.040.B2",
+        "CD1A.261005.003",
+        "CD1A.261005.003.B1",
+        "CD1A.260905.001.B1",
+        "CD1A.260714.001.A9",
+        "CD1A.260618.001.A7",
+        "CD1A.260618.001.C2",
+    ],
     "pixel_10_pro": [
         "AP4A.250405.002",
         "AP4A.250305.001",
@@ -184,7 +220,7 @@ DEVICE_BUILDS_BY_PROFILE: dict[str, list[str]] = {
 }
 
 DEVICE_SPECS: dict = DEVICE_SPECS_BY_PROFILE.get(
-    config.DEVICE_PROFILE_NAME, PIXEL_10_PRO_SPECS
+    config.DEVICE_PROFILE_NAME, PIXEL_11_PRO_SPECS
 )
 
 
@@ -198,7 +234,20 @@ def _resolve_profile_name(profile_name: str | None) -> str:
 def get_specs_for_profile(profile_name: str | None) -> dict:
     """Return the screen/GPU/etc spec dict for *profile_name*."""
     resolved = _resolve_profile_name(profile_name)
-    return DEVICE_SPECS_BY_PROFILE.get(resolved, PIXEL_10_PRO_SPECS)
+    return DEVICE_SPECS_BY_PROFILE.get(resolved, PIXEL_11_PRO_SPECS)
+
+
+def get_offer_terms_for_profile(profile_name: str | None) -> dict[str, str]:
+    """Return the Google AI Pro trial months/storage for *profile_name*."""
+    resolved = _resolve_profile_name(profile_name)
+    preset = config.DEVICE_PRESETS.get(
+        resolved,
+        config.DEVICE_PRESETS[config.DEFAULT_DEVICE_PROFILE],
+    )
+    return {
+        "months": str(preset.get("offer_months", "12")),
+        "storage": str(preset.get("offer_storage", "2 TB")),
+    }
 
 
 def luhn_checksum(number: str) -> int:
@@ -226,12 +275,23 @@ def generate_android_id() -> str:
     return "".join(random.choices("0123456789abcdef", k=16))
 
 
-def generate_device_fingerprint(model: str, build_id: str, android: str) -> str:
-    """Return a realistic Android build fingerprint."""
-    model_key = model.lower().replace(" ", "_")
+def generate_device_fingerprint(
+    model: str,
+    build_id: str,
+    android: str,
+    codename: str | None = None,
+) -> str:
+    """Return a realistic Android build fingerprint.
+
+    Pixel fingerprints use the device codename (for example ``grizzly`` for
+    the Pixel 11 Pro), not the marketing model name. Older presets fall back
+    to the model name until their codenames are added.
+    """
+    device_key = (codename or model).lower().replace(" ", "_")
+    incremental = random.randint(10000000, 99999999)
     return (
-        f"google/{model_key}/{model_key}:{android}/"
-        f"{build_id}/eng.{random.randint(10000000, 99999999)}:user/release-keys"
+        f"google/{device_key}/{device_key}:{android}/"
+        f"{build_id}/{incremental}:user/release-keys"
     )
 
 
@@ -250,7 +310,7 @@ def random_build_id(profile_name: str | None = None) -> str:
     resolved = _resolve_profile_name(profile_name)
     builds = DEVICE_BUILDS_BY_PROFILE.get(
         resolved,
-        DEVICE_BUILDS_BY_PROFILE["pixel_10_pro"],
+        DEVICE_BUILDS_BY_PROFILE[config.DEFAULT_DEVICE_PROFILE],
     )
     return random.choice(builds)
 
@@ -627,6 +687,10 @@ class DeviceProfile:
         }})();
         """
 
+    def offer_terms(self) -> dict[str, str]:
+        """Return the Google AI Pro trial terms for this device profile."""
+        return get_offer_terms_for_profile(self.profile_name)
+
     def summary(self) -> str:
         """Human-readable summary for Telegram messages."""
         return (
@@ -670,7 +734,12 @@ def create_device_profile(
         build=build_id,
         chrome=chrome_version,
     )
-    fingerprint = generate_device_fingerprint(model, build_id, android_version)
+    fingerprint = generate_device_fingerprint(
+        model,
+        build_id,
+        android_version,
+        preset.get("codename"),
+    )
     emulation = resolve_emulation_settings(network_identity)
     return DeviceProfile(
         imei=generate_imei(),
@@ -705,6 +774,8 @@ __all__ = [
     "PIXEL_10_PRO_FOLD_SPECS",
     "PIXEL_10_PRO_SPECS",
     "PIXEL_10_PRO_XL_SPECS",
+    "PIXEL_11_PRO_SPECS",
     "create_device_profile",
+    "get_offer_terms_for_profile",
     "resolve_emulation_settings",
 ]

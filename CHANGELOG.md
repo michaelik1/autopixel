@@ -5,11 +5,19 @@ This file documents the feature baseline of AutoPixel.
 ## [Unreleased]
 
 ### Added
-- Added per-user device profile selection inside the bot. Each Telegram user can now run `/device` (or tap the new **📱 Pick Device** button on the Control Panel) to choose which Pixel preset the bot should simulate for their session. The selection is stored per chat and is applied automatically the next time a device profile is generated (e.g. on `/login`, `/check_offer`, `/rotate_proxy`, `/disable_proxy`). Active sessions are refreshed in place when a new device is picked.
-- Added `pixel_9_pro`, `pixel_9_pro_xl`, `pixel_9_pro_fold`, `pixel_10_pro_xl`, and `pixel_10_pro_fold` device presets. These are the Pixel models eligible for the Google One AI Premium (2 TB) 12-month trial, in addition to the existing `pixel_10_pro` default.
+- Added a `pixel_11_pro` device preset for the **Pixel 11 Pro** (codename `grizzly`): Android 17 / API 37, 1280 × 2856 panel, 410 × 914 CSS viewport at DPR 3.125, Tensor G6 `navigator.hardwareConcurrency = 7`, Chrome-clamped `navigator.deviceMemory = 8`, PowerVR CXTP-48-1536 WebGL identity, and real Pixel 11 Pro Android 17 factory/OTA build IDs.
+- Made `pixel_11_pro` the default device profile. `DEVICE_PROFILE=pixel_10_pro` (or any other bundled preset) still works as an override.
+- Added device-aware Google AI Pro offer terms: the Pixel 11 Pro profile reports the current **6-month / 5 TB** trial, while Pixel 9/10 Pro profiles report the older **12-month / 2 TB** terms.
+- Added 6-month and 5 TB trial markers to the Google One scanner and trial-button ranking so the current Pixel 11 Pro promo is diagnosed and captured correctly.
+- Added per-user device profile selection inside the bot. Each Telegram user can now run `/device` (or tap the **📱 Pick Device** button on the Control Panel) to choose which Pixel preset the bot should simulate for their session. The selection is stored per chat and is applied automatically the next time a device profile is generated (e.g. on `/login`, `/check_offer`, `/rotate_proxy`, `/disable_proxy`). Active sessions are refreshed in place when a new device is picked.
+- Added `pixel_9_pro`, `pixel_9_pro_xl`, `pixel_9_pro_fold`, `pixel_10_pro_xl`, and `pixel_10_pro_fold` device presets. These are the Pixel models eligible for the Google One AI Premium (2 TB) 12-month trial, in addition to the then-default `pixel_10_pro`.
+
+### Changed
+- Device fingerprints now use the Pixel codename where one is known (for example `google/grizzly/grizzly:17/...`) and a user-build incremental instead of the `eng.` engineering marker.
+- Refreshed the README and device picker copy for the current Pixel 11 Pro offer terms, the expired Pixel 10 / Pixel 9 promos, and `navigator.deviceMemory` / `hardwareConcurrency` nuance.
 
 ### Removed
-- Dropped the `pixel_4a`, `pixel_5_android_11`, `pixel_6`, `pixel_7_pro`, and `pixel_8_pro` device presets. The Google One / Pixel offer is only eligible on the Pixel 10 series, so the bot now simulates the Pixel 10 Pro exclusively and the default profile is `pixel_10_pro`.
+- Dropped the `pixel_4a`, `pixel_5_android_11`, `pixel_6`, `pixel_7_pro`, and `pixel_8_pro` device presets. The bot now only bundles Pixel models that have a current or recent Google AI Pro trial (the Pixel 9/10/11 Pro lineup).
 
 ## [1.1.0] - 2026-03-31
 

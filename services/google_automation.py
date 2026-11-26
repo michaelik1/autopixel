@@ -1157,6 +1157,8 @@ def diagnose_google_one_page(driver: webdriver.Chrome) -> str | None:
         "ai premium",
         "g1.2tb.ai",
         "g1.2tb.ai.annual",
+        "g1.5tb.ai",
+        "g1.5tb.ai.annual",
     )
     free_offer_markers = (
         "partner-eft-onboard",
@@ -1166,14 +1168,20 @@ def diagnose_google_one_page(driver: webdriver.Chrome) -> str | None:
         "free trial",
         "12-month",
         "12 month",
+        "6-month",
+        "6 month",
         "freetrial",
         "freetrialperiod",
         "start trial",
         "mulai uji coba",
         "$0/bln",
         "selama 1 bulan",
-        "data-sku-id=\"g1.2tb.ai.1month_eft\"",
-        "data-sku-id=\"g1.2tb.1month_eft\"",
+        "g1.2tb.ai.1month_eft",
+        "g1.2tb.1month_eft",
+        "g1.5tb.ai.1month_eft",
+        "g1.5tb.ai.6month_eft",
+        "g1.5tb.1month_eft",
+        "g1.5tb.6month_eft",
     )
 
     if any(marker in page_source for marker in free_offer_markers):
@@ -1200,7 +1208,7 @@ def diagnose_google_one_page(driver: webdriver.Chrome) -> str | None:
 
 
 def is_correct_offer_url(url: str) -> bool:
-    """Return True for expected Pixel Gemini offer claim URL pattern."""
+    """Return True for expected Pixel Google AI Pro offer claim URL pattern."""
     return bool(url) and "partner-eft-onboard" in url
 
 
@@ -1237,6 +1245,8 @@ def _trial_button_priority(button: WebElement) -> tuple[int, str]:
     if ".ai." in sku_id or "ai pro" in label or "gemini" in label:
         score += 100
     if "2tb" in sku_id or "2 tb" in label:
+        score += 30
+    if "5tb" in sku_id or "5 tb" in label:
         score += 30
     if "1month" in sku_id or "trial" in label or "uji coba" in label:
         score += 10
@@ -1330,9 +1340,13 @@ def extract_trial_button_link(driver: webdriver.Chrome) -> Optional[str]:
             continue
         if (
             "1month" in sku_id
+            or "6month" in sku_id
             or "trial" in label
+            or "free trial" in label
             or "uji coba" in label
             or "start trial" in label
+            or "6 month" in label
+            or "6-month" in label
         ):
             candidates.append(button)
 
@@ -1345,7 +1359,7 @@ def extract_trial_button_link(driver: webdriver.Chrome) -> Optional[str]:
 
 
 def extract_payment_link(driver: webdriver.Chrome) -> Optional[str]:
-    """Scan current page for Gemini Pro offer activation link."""
+    """Scan current page for a Google AI Pro offer activation link."""
     all_links = driver.find_elements(By.TAG_NAME, "a")
 
     for link in all_links:
@@ -1595,7 +1609,7 @@ def resolve_manual_login(driver, timeout: int = 10) -> str:
 
 
 def check_offer_with_driver(driver) -> Optional[str]:
-    """Navigate to Google One and find the Gemini Pro offer link."""
+    """Navigate to Google One and find the Google AI Pro offer link."""
     return navigate_google_one(driver)
 
 
