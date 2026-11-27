@@ -102,6 +102,11 @@ logging.basicConfig(
     level=config.LOG_LEVEL,
     handlers=[_console_handler, _file_handler],
 )
+# httpx logs full request URLs at INFO level, which would expose the Telegram
+# bot token in local logs and container stdout. Keep library transport logs
+# quiet; application-level messages remain at the configured level.
+for _noisy_logger in ("httpx", "httpcore", "urllib3"):
+    logging.getLogger(_noisy_logger).setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
